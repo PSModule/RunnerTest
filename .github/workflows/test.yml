@@ -15,4 +15,29 @@ jobs:
       - name: Content of $HOME
         shell: pwsh
         run: |
-          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExandProperty FullName | Sort-Object
+          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
+
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a multi-line script
+        shell: pwsh
+        run: |
+          Write-Verbose "Test" -Verbose
+
+
+  test3:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Run a multi-line script
+        shell: pwsh
+        run: |
+          Write-Verbose "$HOME" -Verbose
+
+      - name: Content of $HOME
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
