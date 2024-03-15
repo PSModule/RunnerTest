@@ -12,10 +12,11 @@ jobs:
         run: |
           Write-Verbose "$HOME" -Verbose
 
-      - name: Content of $HOME
+      - name: User Profile
         shell: pwsh
         run: |
-          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
+          $userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
+          Write-Verbose $userProfile -Verbose
 
       - name: Test function
         shell: pwsh
@@ -45,31 +46,3 @@ jobs:
 
           Write-Verbose (Get-ConfigPath) -Verbose
 
-
-
-  test2:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run a multi-line script
-        shell: pwsh
-        run: |
-          Write-Verbose "Test" -Verbose
-
-
-  test3:
-    needs: test2
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Run a multi-line script
-        shell: pwsh
-        run: |
-          Write-Verbose "$HOME" -Verbose
-
-      - name: Content of $HOME
-        shell: pwsh
-        run: |
-          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
