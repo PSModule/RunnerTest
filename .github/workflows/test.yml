@@ -17,6 +17,36 @@ jobs:
         run: |
           Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
 
+      - name: Test function
+        shell: pwsh
+        run: |
+          function Get-ConfigPath {
+              if ($IsWindows) {
+                  # Windows - Use AppData\Roaming
+                  return [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ApplicationData)
+              }
+              elseif ($IsLinux) {
+                  # Linux - Follow the XDG Base Directory Specification if possible
+                  $xdgConfigHome = [System.Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME")
+                  if (-not [string]::IsNullOrWhiteSpace($xdgConfigHome)) {
+                      return $xdgConfigHome
+                  } else {
+                      return [System.IO.Path]::Combine([System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile), ".config")
+                  }
+              }
+              elseif ($IsMacOS) {
+                  # macOS - Use ~/Library/Preferences
+                  return [System.IO.Path]::Combine([System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile), "Library", "Preferences")
+              }
+              else {
+                  throw "Unsupported operating system."
+              }
+          }
+
+          Write-Verbose (Get-ConfigPath) -Verbose
+
+
+
   test2:
     needs: test
     runs-on: ubuntu-latest
