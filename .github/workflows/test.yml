@@ -18,6 +18,7 @@ jobs:
           Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExpandProperty FullName | Sort-Object
 
   test2:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Run a multi-line script
@@ -27,6 +28,7 @@ jobs:
 
 
   test3:
+    needs: test2
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
