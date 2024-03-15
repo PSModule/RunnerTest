@@ -1,0 +1,13 @@
+on: push
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Run a multi-line script
+        shell: pwsh
+        run: |
+          Write-Verbose "$HOME" -Verbose
