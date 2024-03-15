@@ -11,3 +11,8 @@ jobs:
         shell: pwsh
         run: |
           Write-Verbose "$HOME" -Verbose
+
+      - name: Content of $HOME
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path $HOME -Recurse -Force | Select-Object -ExandProperty FullName | Sort-Object
