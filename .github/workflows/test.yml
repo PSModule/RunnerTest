@@ -4,21 +4,15 @@ jobs:
   test:
     strategy:
       matrix:
+        shell: [pwsh]
         os: [macos-latest, windows-latest, ubuntu-latest]
+        include:
+          - shell: powershell
+            os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Run a multi-line script
         shell: pwsh
-        run: |
-          ([System.Environment]::OSVersion).Platform
-
-          Get-ChildItem env:
-
-  test2:
-    runs-on: windows-latest
-    steps:
-      - name: Run a multi-line script
-        shell: powershell
         run: |
           ([System.Environment]::OSVersion).Platform
 
