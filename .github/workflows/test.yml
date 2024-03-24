@@ -12,7 +12,7 @@ jobs:
         run: |
           $PSVersionTable
 
-          [System.Environment]::OSVersion
+          ([System.Environment]::OSVersion).Platform
 
   test2:
     runs-on: windows-latest
@@ -21,5 +21,5 @@ jobs:
         shell: powershell
         run: |
           $PSVersionTable
-          
-          [System.Environment]::OSVersion
+
+          ([System.Environment]::OSVersion).Platform
