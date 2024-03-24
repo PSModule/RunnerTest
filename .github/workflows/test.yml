@@ -12,6 +12,8 @@ jobs:
         run: |
           $PSVersionTable
 
+          [System.Environment]::OSVersion
+
   test2:
     runs-on: windows-latest
     steps:
@@ -19,3 +21,5 @@ jobs:
         shell: powershell
         run: |
           $PSVersionTable
+          
+          [System.Environment]::OSVersion
