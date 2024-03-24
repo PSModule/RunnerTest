@@ -10,39 +10,12 @@ jobs:
       - name: Run a multi-line script
         shell: pwsh
         run: |
-          Write-Verbose "$HOME" -Verbose
+          $PSVersionTable
 
-      - name: User Profile
-        shell: pwsh
+  test2:
+    runs-on: windows-latest
+    steps:
+      - name: Run a multi-line script
+        shell: powershell
         run: |
-          $userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
-          Write-Verbose $userProfile -Verbose
-
-      - name: Test function
-        shell: pwsh
-        run: |
-          function Get-ConfigPath {
-              if ($IsWindows) {
-                  # Windows - Use AppData\Roaming
-                  return [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::ApplicationData)
-              }
-              elseif ($IsLinux) {
-                  # Linux - Follow the XDG Base Directory Specification if possible
-                  $xdgConfigHome = [System.Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME")
-                  if (-not [string]::IsNullOrWhiteSpace($xdgConfigHome)) {
-                      return $xdgConfigHome
-                  } else {
-                      return [System.IO.Path]::Combine([System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile), ".config")
-                  }
-              }
-              elseif ($IsMacOS) {
-                  # macOS - Use ~/Library/Preferences
-                  return [System.IO.Path]::Combine([System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile), "Library", "Preferences")
-              }
-              else {
-                  throw "Unsupported operating system."
-              }
-          }
-
-          Write-Verbose (Get-ConfigPath) -Verbose
-
+          $PSVersionTable
