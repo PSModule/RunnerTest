@@ -12,6 +12,8 @@ jobs:
         run: |
           ([System.Environment]::OSVersion).Platform
 
+          Get-ChildItem env:
+
   test2:
     runs-on: windows-latest
     steps:
@@ -19,3 +21,5 @@ jobs:
         shell: powershell
         run: |
           ([System.Environment]::OSVersion).Platform
+
+          Get-ChildItem env:
