@@ -10,8 +10,6 @@ jobs:
       - name: Run a multi-line script
         shell: pwsh
         run: |
-          $PSVersionTable
-
           ([System.Environment]::OSVersion).Platform
 
   test2:
@@ -20,6 +18,4 @@ jobs:
       - name: Run a multi-line script
         shell: powershell
         run: |
-          $PSVersionTable
-
           ([System.Environment]::OSVersion).Platform
