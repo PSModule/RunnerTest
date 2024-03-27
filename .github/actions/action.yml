@@ -16,5 +16,4 @@ runs:
     - name: Run Test
       shell: ${{ inputs.shell }}
       run: |
-        ${{ runner.os }}
         Write-Host "passed=${{ inputs.os == 'windows-latest' }}" >> "$GITHUB_OUTPUT"

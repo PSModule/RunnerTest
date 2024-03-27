@@ -2,6 +2,11 @@ name: test2
 
 on: [push]
 
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   job0:
     name: Test source code
