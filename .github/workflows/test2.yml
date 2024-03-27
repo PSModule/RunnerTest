@@ -38,5 +38,5 @@ jobs:
     steps:
       - shell: pwsh
         run: |
-          Write-Host "${{ toJson(needs.job0.outputs) }}"
+          Write-Host "${{ toJson(needs) }}"
 
