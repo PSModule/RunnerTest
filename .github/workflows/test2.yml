@@ -20,17 +20,17 @@ jobs:
             os: windows-latest
     runs-on: ${{ matrix.os }}
     outputs:
-      passed: ${{ steps.test.outputs.passed }}
+      ${{ matrix.shell }}-${{ matrix.os }}-passed: ${{ steps.test.outputs.passed }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Upload test results
-        id: test
-        uses: ./.github/actions
-        with:
-          shell: ${{ matrix.shell }}
-          os: ${{ matrix.os }}
+      # - name: Upload test results
+      #   id: test
+      #   uses: ./.github/actions
+      #   with:
+      #     shell: ${{ matrix.shell }}
+      #     os: ${{ matrix.os }}
 
   job1:
     runs-on: ubuntu-latest
