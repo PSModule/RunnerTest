@@ -3,7 +3,8 @@ name: test2
 on: [push]
 
 jobs:
-  job1:
+  job0:
+    name: Test source code
     strategy:
       fail-fast: false
       matrix:
@@ -14,16 +15,21 @@ jobs:
             os: windows-latest
     runs-on: ${{ matrix.os }}
     outputs:
-      passsed: ${{ steps.step1.outputs.passed }}
+      passed: ${{ steps.test.outputs.passed }}
     steps:
-      - id: step1
-        if: matrix.os == 'windows-latest'
-        shell: ${{ matrix.shell }}
-        run: Write-Host "passed=${{ matrix.os == 'windows-latest' }}" >> "$GITHUB_OUTPUT"
-  job2:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Upload test results
+        id: test
+        uses: ./.github/actions/test.yml
+        with:
+          shell: ${{ matrix.shell }}
+
+  job1:
     runs-on: ubuntu-latest
-    needs: job1
     steps:
-      - env:
-          passed: ${{needs.job1.outputs.passed}}
-        run: echo "$passed"
+      - shell: pwsh
+        run: |
+          Write-Host "Output from passed is ${{ needs.matrix_job.outputs.passed }}"
+

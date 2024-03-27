@@ -1,0 +1,19 @@
+name: Test
+
+inputs:
+  shell:
+    description: The shell to use for running the tests.
+    required: false
+    default: pwsh
+  os:
+    description: The operating system to run the tests on.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Run Test
+      shell: ${{ inputs.shell }}
+      run: |
+        ${{ runner.os }}
+        Write-Host "passed=${{ inputs.os == 'windows-latest' }}" >> "$GITHUB_OUTPUT"
