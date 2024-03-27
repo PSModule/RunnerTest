@@ -28,8 +28,9 @@ jobs:
 
   job1:
     runs-on: ubuntu-latest
+    needs: job0
     steps:
       - shell: pwsh
         run: |
-          Write-Host "Output from passed is ${{ needs.matrix_job.outputs.passed }}"
+          Write-Host "Output from passed is ${{ needs.job0.outputs.passed }}"
 
