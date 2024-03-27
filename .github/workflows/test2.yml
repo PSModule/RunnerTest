@@ -30,6 +30,7 @@ jobs:
         uses: ./.github/actions
         with:
           shell: ${{ matrix.shell }}
+          os: ${{ matrix.os }}
 
   job1:
     runs-on: ubuntu-latest
