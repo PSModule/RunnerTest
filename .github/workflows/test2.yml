@@ -20,7 +20,7 @@ jobs:
             os: windows-latest
     runs-on: ${{ matrix.os }}
     outputs:
-      ${{ matrix.shell }}-${{ matrix.os }}-passed: ${{ steps.test.outputs.passed }}
+      passed: ${{ steps.test.outputs.passed }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
