@@ -38,5 +38,5 @@ jobs:
     steps:
       - shell: pwsh
         run: |
-          Write-Host "Output from passed is ${{ needs.job0.outputs.passed }}"
+          Write-Host "${{ toJson(needs.job0.outputs) }}"
 
