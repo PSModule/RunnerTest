@@ -24,6 +24,5 @@ jobs:
 
       - shell: pwsh
         run: |
-          whoami
-          sudo pwsh -Command "$IsAdmin = $(whoami); $IsAdmin -eq 'root'"
+          sudo pwsh main.ps1
 
