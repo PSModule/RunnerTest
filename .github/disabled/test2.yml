@@ -1,6 +1,7 @@
-name: Admin-SUDO
+name: test2
 
 on: [push]
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,12 +19,24 @@ jobs:
           - shell: powershell
             os: windows-latest
     runs-on: ${{ matrix.os }}
+    outputs:
+      passed: ${{ steps.test.outputs.passed }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # - name: Upload test results
+      #   id: test
+      #   uses: ./.github/actions
+      #   with:
+      #     shell: ${{ matrix.shell }}
+      #     os: ${{ matrix.os }}
+
+  job1:
+    runs-on: ubuntu-latest
+    needs: job0
+    steps:
       - shell: pwsh
         run: |
-          whoami
-          sodu pwsh -Command "whoami"
+          Write-Host "${{ toJson(needs) }}"
 
