@@ -25,5 +25,5 @@ jobs:
       - shell: pwsh
         run: |
           whoami
-          sodu pwsh -Command "whoami"
+          sudo pwsh -Command "whoami"
 
