@@ -12,6 +12,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run script
+        shell: pwsh
         run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Event payload: ${{ toJson(github.event) }}"
+          Write-Host "Event name: $env:GITHUB_EVENT_NAME"
+          Write-Host "Event payload:"
+          Get-Content $env:GITHUB_EVENT_PATH
+
+      - name: Environment variables
+        shell: pwsh
+        run: |
+          get-ChildItem env: | sort-object Name | Select-Object Name, Value
+
+      - name: PowerShell variables
+        shell: pwsh
+        run: |
+          Get-Variable | Select-Object Name, Value
