@@ -1,0 +1,17 @@
+name: Events
+
+on: [push]
+
+
+jobs:
+  job0:
+    name: Event info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run script
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Event payload: ${{ toJson(github.event) }}"
