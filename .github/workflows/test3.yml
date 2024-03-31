@@ -27,5 +27,3 @@ jobs:
         shell: pwsh
         run: |
           Get-Variable | Select-Object Name, Value
-
-          
