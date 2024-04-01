@@ -17,13 +17,17 @@ jobs:
         shell: pwsh
         run: |
           Write-Host '::group::OSVersion'
-          $OSVersion = [System.Environment]::OSVersion
+          Write-Host ([System.Environment]::OSVersion | Out-String)
+          Write-Host '::endgroup::'
+
+          Write-Host '::group::PSVersionTable'
+          Write-Host ($PSVersionTable | Out-String)
           Write-Host '::endgroup::'
 
           Write-Host '::group::Environment variables'
-          Get-ChildItem env: | sort-object Name | Select-Object Name, Value
+          Write-Host (Get-ChildItem env: | sort-object Name | Select-Object Name, Value | Out-String)
           Write-Host '::endgroup::'
 
           Write-Host '::group::PowerShell variables'
-          Get-Variable | Select-Object Name, Value
+          Write-Host (Get-Variable | Format-Table -AutoSize | Out-String)
           Write-Host '::endgroup::'
