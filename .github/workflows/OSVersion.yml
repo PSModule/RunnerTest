@@ -1,3 +1,5 @@
+name: OSVersion
+
 on: push
 
 jobs:
@@ -14,6 +16,5 @@ jobs:
       - name: Run a multi-line script
         shell: pwsh
         run: |
-          ([System.Environment]::OSVersion).Platform
-
-          Get-ChildItem env:
+          $OSVersion = [System.Environment]::OSVersion
+          ($OSVersion | New-MDTable) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
