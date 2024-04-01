@@ -14,9 +14,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Run a multi-line script
-        shell: pwsh
+        shell: ${{ matrix.shell }}
         run: |
+          Write-Host '::group::OSVersion'
           $OSVersion = [System.Environment]::OSVersion
-          ($OSVersion | New-MDTable) | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          Write-Host '::endgroup::'
 
-          
+          Write-Host '::group::Environment variables'
+          Get-ChildItem env: | sort-object Name | Select-Object Name, Value
+          Write-Host '::endgroup::'
+
+          Write-Host '::group::PowerShell variables'
+          Get-Variable | Select-Object Name, Value
+          Write-Host '::endgroup::'
