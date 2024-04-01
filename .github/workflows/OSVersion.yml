@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Run a multi-line script
-        shell: ${{ matrix.shell }}
+        shell: pwsh
         run: |
           Write-Host '::group::OSVersion'
           $OSVersion = [System.Environment]::OSVersion
