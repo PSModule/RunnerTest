@@ -28,6 +28,36 @@ jobs:
           Write-Verbose (Get-ChildItem env: | sort-object Name | Select-Object Name, Value | Out-String) -Verbose
           Write-Host '::endgroup::'
 
+          Write-Host '::group::[System.Environment]'
+          $SystemEnvironment = [pscustomobject]@{
+              CommandLine            = [System.Environment]::CommandLine
+              CurrentDirectory       = [System.Environment]::CurrentDirectory
+              CurrentManagedThreadId = [System.Environment]::CurrentManagedThreadId
+              ExitCode               = [System.Environment]::ExitCode
+              HasShutdownStarted     = [System.Environment]::HasShutdownStarted
+              Is64BitOperatingSystem = [System.Environment]::Is64BitOperatingSystem
+              Is64BitProcess         = [System.Environment]::Is64BitProcess
+              IsPrivilegedProcess    = [System.Environment]::IsPrivilegedProcess
+              MachineName            = [System.Environment]::MachineName
+              NewLine                = [System.Environment]::NewLine
+              OSVersion              = [System.Environment]::OSVersion
+              ProcessId              = [System.Environment]::ProcessId
+              ProcessorCount         = [System.Environment]::ProcessorCount
+              ProcessPath            = [System.Environment]::ProcessPath
+              StackTrace             = [System.Environment]::StackTrace
+              SystemDirectory        = [System.Environment]::SystemDirectory
+              SystemPageSize         = [System.Environment]::SystemPageSize
+              TickCount              = [System.Environment]::TickCount
+              TickCount64            = [System.Environment]::TickCount64
+              UserDomainName         = [System.Environment]::UserDomainName
+              UserInteractive        = [System.Environment]::UserInteractive
+              UserName               = [System.Environment]::UserName
+              Version                = [System.Environment]::Version
+              WorkingSet             = [System.Environment]::WorkingSet
+          }
+          Write-Verbose ($SystemEnvironment | Format-List | Out-String) -Verbose
+          Write-Host '::endgroup::'
+
           Write-Host '::group::PowerShell variables'
           Write-Verbose (Get-Variable | Format-Table -AutoSize | Out-String) -Verbose
           Write-Host '::endgroup::'
