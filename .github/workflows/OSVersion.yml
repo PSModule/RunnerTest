@@ -63,6 +63,6 @@ jobs:
           Write-Host '::endgroup::'
 
           Write-Host '::group::PowerShell modules'
-          Write-Verbose (Get-Module | Select-Object -Property Name, Path | Sort-Object -Property Path | Format-Table -AutoSize | Out-String) -Verbose
+          Write-Verbose (Get-Module -ListAvailable | Select-Object -Property Name, Path | Sort-Object -Property Path | Format-Table -AutoSize | Out-String) -Verbose
           Write-Host '::endgroup::'
 
