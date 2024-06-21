@@ -1,0 +1,23 @@
+name: Test Cron
+
+on:
+  schedule: # every 5 minutes
+    - cron: '*/5 * * * *'
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a multi-line script
+        shell: pwsh
+        run: |
+          Write-Host '::group::Event information - JSON'
+          $githubEventJson = Get-Content $env:GITHUB_EVENT_PATH
+          $githubEventJson | Format-List
+          Write-Host '::endgroup::'
+
+          Write-Host '::group::Event information - Object'
+          $githubEvent = $githubEventJson | ConvertFrom-Json
+          $pull_request = $githubEvent.pull_request
+          $githubEvent | Format-List
+          Write-Host '::endgroup::'
