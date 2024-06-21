@@ -8,7 +8,9 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
+      # Run if the cron job is triggered
       - name: Run a multi-line script
+        if: github.event_name != 'schedule'
         shell: pwsh
         run: |
           Write-Host '::group::Environment'
