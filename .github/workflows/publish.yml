@@ -8,7 +8,11 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
+    - name: Get PR info
+      shell: pwsh
+      run: |
+        gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$evn:GITHUB_REPOSITORY/commits/$env:GITHUB_SHA/pulls
+
     - name: Debug
       uses: PSModule/Debug@main
