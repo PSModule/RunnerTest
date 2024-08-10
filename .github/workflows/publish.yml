@@ -10,11 +10,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Download Docs Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: docs
-        path: ./docs/ # Adjust path accordingly
-
     - name: Debug
       uses: PSModule/Debug@main
