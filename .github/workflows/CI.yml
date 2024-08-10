@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Debug
+      uses: PSModule/Debug@main
+
+    - name: Upload Docs Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: docs
+        path: ./docs
