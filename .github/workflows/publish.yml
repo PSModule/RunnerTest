@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: Get PR info
       shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$evn:GITHUB_REPOSITORY/commits/$env:GITHUB_SHA/pulls
 
