@@ -1,6 +1,11 @@
 name: Publish
 
 on:
+  workflow_dispatch:
+    inputs:
+      WorkflowRunID:
+        description: The ID of the workflow run where the artifact will be download from.
+        required: true
   push:
     branches:
       - main
@@ -13,8 +18,6 @@ jobs:
       uses: PSModule/Download-CIArtifact@init
       with:
         WorkflowID: CI.yml
+        WorkflowRunID: ${{ github.event.inputs.WorkflowRunID }}
         ArtifactName: docs
         GITHUB_TOKEN: ${{ github.token }}
-        
-    - name: Debug
-      uses: PSModule/Debug@main
