@@ -10,28 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Get PR info
-      id: pr
-      shell: pwsh
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        Write-Output "::group::Get PR"
-        $PR = gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/$env:GITHUB_REPOSITORY/commits/$env:GITHUB_SHA/pulls" | ConvertFrom-Json
-        $PR  | ConvertTo-Json -Depth 100
-
-        Write-Output "::group::Get WorkflowRun"
-        $WorkflowRuns = gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/$env:GITHUB_REPOSITORY/actions/workflows/CI.yml/runs?head_sha=$($PR.head.sha)" | ConvertFrom-Json | Select-Object -ExpandProperty workflow_runs
-        $WorkflowRuns | ConvertTo-Json -Depth 100
-        Write-Output "::endgroup::"
-        
-        "run-id=$($WorkflowRuns.id)" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        
-    - name: Download Artifact from CI
-      uses: actions/download-artifact@v4
+      uses: PSModule/Download-CIArtifact@init
       with:
-        name: docs
-        github-token: ${{ github.token }}    
-        run-id:  ${{ steps.pr.outputs.run-id }}
+        WorkflowID: CI.yml
+        ArtifactName: docs
+        GITHUB_TOKEN: ${{ github.token }}
         
     - name: Debug
       uses: PSModule/Debug@main
